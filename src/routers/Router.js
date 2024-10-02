@@ -8,20 +8,32 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import ProtectedRoute from './ProtectedRoute';
 
-const Router = () => {
-    return <Routes>
-        <Route path='/' element={<Navigate to="/home"></Navigate>} />
-        <Route path='home' element={<Home></Home>} />
-        <Route path='shop' element={<Shop></Shop>} />
-        <Route path='shop/:id' element={<ProductDetails></ProductDetails>} />
-        <Route path='cart' element={<Cart></Cart>} />
-        <Route path='checkout' element={<ProtectedRoute>
-            <Checkout></Checkout>
-        </ProtectedRoute>} />
-        <Route path='login' element={<Login></Login>} />
-        <Route path='signup' element={<Signup></Signup>} />
+import AddProducts from "../admin/AddProducts";
+import AllProducts from "../admin/AllProducts";
+import Dashboard from "../admin/Dashboard";
+import Users from "../admin/Users";
 
-    </Routes>
+const Router = () => {
+    return (
+        <Routes>
+            <Route path='/' element={<Navigate to="/home" replace />} />
+            <Route path='home' element={<Home />} />
+            <Route path='shop' element={<Shop />} />
+            <Route path='shop/:id' element={<ProductDetails />} />
+            <Route path='cart' element={<Cart />} />
+            
+            <Route element={<ProtectedRoute adminOnly />}>
+                <Route path='dashboard' element={<Dashboard />} />
+                <Route path='dashboard/all-products' element={<AllProducts />} />
+                <Route path='dashboard/add-product' element={<AddProducts />} />
+                <Route path='dashboard/users' element={<Users />} />
+                <Route path='checkout' element={<Checkout />} /> {/* If admin can access */}
+            </Route>
+
+            <Route path='login' element={<Login />} />
+            {/* <Route path='signup' element={<Signup />} /> */}
+        </Routes>
+    );
 };
 
 export default Router;

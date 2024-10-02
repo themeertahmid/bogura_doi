@@ -2,13 +2,10 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
-import products from "../assets/data/products.js";
 import counterImg from "../assets/images/02.JPG";
 
 import Helmet from "../components/Helmet/Helmet";
-import Clock from "../components/UI/Clock.jsx";
 import ProductList from "../components/UI/ProductList";
-import Services from "../services/Services";
 import "../styles/home.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -21,7 +18,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
 
+import useGetData from "../custom-hooks/useGetData.js"
+
 const Home = () => {
+
+
+  const { data: products, loading } = useGetData('products')
+
+
   const [categories, setCategories] = useState([]);
   const [doi, setDoi] = useState([]);
   const [rosomalai, setRosomalai] = useState([]);
@@ -31,26 +35,34 @@ const Home = () => {
   const year = new Date().getFullYear();
 
   useEffect(() => {
-    const filteredTopCategories = products.filter(
-      (item) => item.top_category === "top_category"
-    );
-    const filteredDoi = products
-      .filter((item) => item.category === "doi")
-      .slice(0, 8);
+    if (products) {
+      const filteredTopCategories = products.filter(
+        (item) => item.category === "top_category" // Match the string directly
+      );
 
-    const filteredRosomalai = products.filter(
-      (item) => item.category === "rosomalai"
-    );
-    const filteredMisti = products.filter((item) => item.category === "misti");
-    const filteredSondesh = products.filter(
-      (item) => item.category === "sondesh_borfi"
-    );
-    setCategories(filteredTopCategories);
-    setDoi(filteredDoi);
-    setRosomalai(filteredRosomalai);
-    setMisti(filteredMisti);
-    setPopularProducts(filteredSondesh);
-  }, []);
+      const filteredDoi = products
+        .filter((item) => item.category === "doi")
+        .slice(0, 8);
+
+      const filteredRosomalai = products.filter(
+        (item) => item.category === "rosomalai"
+      );
+      const filteredMisti = products.filter((item) => item.category === "misti");
+      const filteredSondesh = products.filter(
+        (item) => item.category === "sondesh_borfi"
+      );
+
+      setCategories(filteredTopCategories);
+      setDoi(filteredDoi);
+      setRosomalai(filteredRosomalai);
+      setMisti(filteredMisti);
+      setPopularProducts(filteredSondesh);
+    }
+  }, [products]);
+
+
+
+
 
   return (
     <Helmet title={"Home"}>
@@ -164,15 +176,23 @@ const Home = () => {
       <section className="trending_products">
         <Container>
           <Row>
-            <Col lg="12" className="">
-              <h2 className="text-center section_title">
-                শীর্ষ বিভাগ / Top Categories
-              </h2>
+            <Col lg="12">
+              <h2 className="text-center section_title">শীর্ষ বিভাগ / Top Categories</h2>
             </Col>
-            <ProductList data={categories}></ProductList>
+            {categories.length > 0 ? (
+              <ProductList data={categories} />
+            ) : (
+              <div className="center-text my-5">
+                <span class="loader"></span>
+
+              </div>
+            )}
           </Row>
         </Container>
       </section>
+
+
+
 
       <section className="best_sales">
         <Container>
@@ -180,17 +200,26 @@ const Home = () => {
             <Col lg="12" className="">
               <h2 className="text-center section_title">আরও স্পেশাল </h2>
             </Col>
-            <ProductList data={doi}></ProductList>
-            <ProductList data={rosomalai}></ProductList>
-            <ProductList data={misti}></ProductList>
-            <ProductList data={sondesh}></ProductList>
-          
+            {
+              loading ? <div className="center-text my-5">
+                <span class="loader"></span>
+
+              </div> : <>
+                <ProductList data={doi}></ProductList>
+                <ProductList data={rosomalai}></ProductList>
+                <ProductList data={misti}></ProductList>
+                <ProductList data={sondesh}></ProductList>
+              </>
+            }
+
+
           </Row>
           <motion.button whileTap={{ scale: 1.2 }} className="buy_btn view_all_button">
-              <Link to="/shop">আমাদের সব প্রোডাক্ট দেখুন</Link>
-            </motion.button>
+            <Link to="/shop">আমাদের সব প্রোডাক্ট দেখুন</Link>
+          </motion.button>
         </Container>
       </section>
+
 
       <section className="timer_count">
         <Container>
@@ -224,28 +253,52 @@ const Home = () => {
         </Container>
       </section>
 
-      <section className="new_arrivals">
+
+
+      <section>
+        <h2 className="text-center section_title">Gallery</h2>
         <Container>
-          <Row>
-            <Col lg="12" className="">
-              <h2 className="text-center section_title"></h2>
-            </Col>
-            {/* <ProductList data={newArrivalsProducts}></ProductList>
-            <ProductList data={wirelesssProducts}></ProductList> */}
-          </Row>
+          <div>
+            <ul className="grid">
+              {/* FIRST BUNCH OF SPECIFIC IMAGES */}
+              {[
+                { src: 'https://i.ibb.co.com/ZdtkbN8/23.jpg', height: 1138 },
+                { src: 'https://i.ibb.co.com/f2x0Y3D/13.jpg', height: 427 },
+                { src: 'https://i.ibb.co.com/DYF5DBV/24.jpg', height: 427 },
+                { src: 'https://i.ibb.co.com/LCd6V8n/4.jpg', height: 418 },
+                { src: 'https://i.ibb.co.com/QmNWsnk/16.jpg', height: 427 },
+
+                { src: 'https://i.ibb.co.com/f2x0Y3D/13.jpg', height: 314 },
+                { src: 'https://i.ibb.co.com/yyhjrSL/19.jpg', height: 314 },
+                { src: 'https://i.ibb.co.com/Y3tC1Ld/22.jpg', height: 314 },
+
+                { src: 'https://i.ibb.co.com/MZ4D7wC/30.jpg', height: 314 },
+                { src: 'https://i.ibb.co.com/NZFrQW8/29.jpg', height: 314 },
+                { src: 'https://i.ibb.co.com/0m36K23/21.jpg', height: 314 },
+
+
+
+
+              ].map((image, i) => (
+                <li key={i} style={{ '--n': 0 }}>
+                  <figure>
+                    <img
+                      width="640"
+                      height={image.height}
+                      src={image.src}
+                      alt=""
+                    />
+                  </figure>
+                </li>
+              ))}
+
+
+            </ul>
+          </div>
         </Container>
       </section>
 
-      {/* <section className="new_arrivals">
-        <Container>
-          <Row>
-            <Col lg="12" className="">
-              <h2 className="text-center section_title">Popular in Category</h2>
-            </Col>
-            <ProductList data={popularProducts}></ProductList>
-          </Row>
-        </Container>
-      </section> */}
+
     </Helmet>
   );
 };

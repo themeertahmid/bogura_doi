@@ -86,7 +86,7 @@ const Footer = () => {
           <Col lg="12">
             <p className="footer_copyright">
               Copyright {new Date().getFullYear()}, designed by{" "}
-              <Link to="https://github.com/urtahmid">Meer Tahmid</Link>
+              <Link to="https://github.com/urtahmid">Tahmid</Link>
             </p>
           </Col>
         </Row>

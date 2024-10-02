@@ -44,7 +44,7 @@ const Login = () => {
               </Col>
             ) : (
               <Col lg="6" className="m-auto text-center">
-                <h3 className="fw-bold mb-4">Login</h3>
+                <h3 className="fw-bold mb-4">Admin Login</h3>
                 <Form className="auth_form" onSubmit={signIn}>
                   <FormGroup className="form_group">
                     <input
@@ -70,8 +70,8 @@ const Login = () => {
                     Login
                   </button>
                   <p>
-                    Don't have an account?{" "}
-                    <Link to="/signup">Create an account</Link>
+                    Don't have an Admin Access{" "}
+                    <Link to="/home">Go To Home</Link>
                   </p>
                 </Form>
               </Col>
