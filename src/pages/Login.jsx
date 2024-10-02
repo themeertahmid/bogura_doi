@@ -26,10 +26,10 @@ const Login = () => {
       console.log(user);
       setLoading(false);
       toast.success("Successfuly logged in");
-      navigate("/checkout");
+      navigate("/dashboard");
     } catch (error) {
       setLoading(false);
-      toast.error(error.message);
+      toast.error("Check Your Email And Password And Try Again");
     }
   };
 

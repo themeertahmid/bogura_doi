@@ -86,3 +86,55 @@ section {
     padding: 40px 0px;
   }
 }
+
+
+.action_td span i {
+  font-size: 20px;
+  margin: 20px;
+}
+
+.ri-edit-2-line{
+  color: green;
+}
+
+
+.ri-delete-bin-6-line{
+  color: red;
+}
+
+
+
+/* General modal styles */
+.modal-content {
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Modal body styles */
+.modal-body {
+  padding: 20px; /* Padding for the modal body */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%; /* Full width for small screens */
+    margin: auto; /* Center the modal */
+  }
+
+  .modal-body {
+    padding: 15px; /* Reduced padding for small screens */
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-content {
+    width: 500px; /* Fixed width for larger screens */
+    margin: auto; /* Center the modal */
+  }
+}
+
+.modal_actions{
+  display: flex;
+  gap: 20px;
+  justify-content: end;
+}

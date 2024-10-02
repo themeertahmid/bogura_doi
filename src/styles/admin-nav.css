@@ -214,3 +214,16 @@
 
  }
  
+
+ .logo a:hover{
+    color: #fff;
+ }
+
+ .admin__nav-top-right a:hover{
+    color: white;
+ }
+
+ .admin_li{
+    color: black;
+    list-style-type: none;
+ }
